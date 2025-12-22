@@ -1,8 +1,12 @@
 import React from 'react'
 import Card from './Card'
 import moment from 'moment';
+import { useState } from 'react';
+import CardModal from '../ModelComponents/CardModal';
 
 const CardForTask = () => {
+
+    const [selectedTask, setselectedTask] = useState(null)
 
     const today = new Date();
     const formattedDate = today.toISOString().split('T')[0];
@@ -92,12 +96,15 @@ const CardForTask = () => {
 
     const arrays = JSON.parse(localStorage.getItem("TaskProgress"))
     return (
-        <div className='bg-white flex gap-2 justify-start items-center h-[26%] w-[98%] overflow-auto no-scrollbar ml-2'>
-            {arrays.map((item) => (
-                <Card key={item.id} Task={item} />
-                // console.log(item)
-            ))}
-        </div>
+        <>
+            <div className='bg-white flex gap-2 justify-start items-center h-[26%] w-[98%] overflow-auto no-scrollbar ml-2'>
+                {arrays.map((item) => (
+                    <Card key={item.id} Task={item}  onOpen={()=>setselectedTask(item)}/>
+                    // console.log(item
+                ))}
+            </div>
+            {selectedTask && <CardModal onClose={()=>setselectedTask(null)} Task={selectedTask}/>}
+        </>
     )
 }
 

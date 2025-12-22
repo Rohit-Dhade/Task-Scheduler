@@ -1,9 +1,14 @@
 import React from 'react'
+import { useState } from 'react';
+import CardModal from '../ModelComponents/CardModal';
 
-const Card = ({Task}) => {
+const Card = ({onOpen ,Task}) => {
     // console.log(Task);
+    // const [openTask, setopenTask] = useState(false);
+
     return (
-        <div className='bg-white shadow-2xl w-[25%] h-[95%] rounded-2xl border border-gray-400 flex flex-col items-center shrink-0'>
+        <>
+            <div onClick={onOpen} className='bg-white shadow-2xl w-[25%] h-[95%] rounded-2xl border border-gray-400 flex flex-col items-center shrink-0'>
             <div className='w-[85%] flex flex-col gap-1 relative'>
                 <div className='flex items-center justify-between mt-1'>
                     <p className='text-[10px] opacity-55'>{Task.deadline}</p>
@@ -26,6 +31,8 @@ const Card = ({Task}) => {
                 {/* <span className='absolute right-1 top-27.5 bg-pink-500/65 rounded-xl flex items-center justify-center w-[35%] whitespace-nowrap text-[9px]'>0 days left</span> */}
             </div>
         </div>
+        {/* {openTask && <CardModal onClose={()=>setopenTask(false)}/>} */}
+        </>
     )
 }
 
