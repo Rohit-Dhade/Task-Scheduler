@@ -2,9 +2,10 @@ import React from 'react'
 import { GrClose } from "react-icons/gr";
 import { useState, useEffect } from 'react';
 
-const Cardsmodal = ({index, Task, onClose }) => {
+const Cardsmodal = ({ index, Task, onClose }) => {
 
-    console.log(index);
+    const taskprogress = JSON.parse(localStorage.getItem('TaskProgress'))
+    // taskprogress[1].progress = 40;
 
     const [subTask, setsubTask] = useState(() => {
         const stored = localStorage.getItem(`SubTaskProgress${index}`);
@@ -20,11 +21,32 @@ const Cardsmodal = ({index, Task, onClose }) => {
         setsubTask(prev => [...prev, { id: prev.length + 1, done: false }]);
     }
 
+    const [progress, setprogress] = useState(0);
+
+    useEffect(() => {
+        const prog =
+            subTask.length === 0
+                ? 0
+                : Math.round(
+                    (subTask.filter(t => t.done).length / subTask.length) * 100
+                );
+
+        setprogress(prog);
+
+        const taskprogress = JSON.parse(localStorage.getItem('TaskProgress'));
+        if (taskprogress[index]) {
+            taskprogress[index].progress = prog;
+            localStorage.setItem('TaskProgress', JSON.stringify(taskprogress));
+        }
+    }, [subTask, index]);
+
+
     function UpdateStatus(id) {
-        setsubTask(prev => prev.map( task =>
-            task.id === id ? {...task , done : !task.done} : task
+        setsubTask(prev => prev.map(task =>
+            task.id === id ? { ...task, done: !task.done } : task
         ))
     }
+
 
     return (
         <div className='fixed inset-0 bg-black/70 backdrop-blur-lg flex justify-center items-center transition-all duration-300'>
@@ -56,7 +78,7 @@ const Cardsmodal = ({index, Task, onClose }) => {
                         <div className='flex flex-col gap-2 mt-0 overflow-auto no-scrollbar w-[50%]'>
                             {subTask.map(item => (
                                 <span key={item.id} className='flex gap-2'>
-                                    <input onChange={()=>UpdateStatus(item.id)} type="checkbox" checked={item.done}/>
+                                    <input onChange={() => UpdateStatus(item.id)} type="checkbox" checked={item.done} />
                                     <h1>Task-{item.id}</h1>
                                 </span>
                             ))}
