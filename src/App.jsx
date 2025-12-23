@@ -5,8 +5,13 @@ import TaskProgress from './Components/TaskProgress'
 import Assignments from './Components/Assignments'
 import BasicDateCalendar from './Components/Calendar'
 import Photo from './assets/Photo.jpg'
+import AddTask from './ModelComponents/AddTask'
+import { useState } from 'react'
+import Addt from './ModelComponents/Addt'
+import Addass from './ModelComponents/Addass'
 
 const App = () => {
+
   return (
     <div className='bg-[#DBD4F6] h-screen w-screen flex items-center justify-center gap-1'>
       <div className='bg-white h-[98%] w-[95%] shadow-2xl rounded-lg flex gap-2'>
@@ -27,6 +32,10 @@ const App = () => {
             </div>
           </div>
           <BasicDateCalendar />
+          <div className='w-full h-full flex flex-col items-center justify-center mt-7 gap-2'>
+            <Addt/>
+            <Addass/>
+          </div>
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ const Main = () => {
                 <div className='flex items-center justify-between w-full'>
                     <div>
                         <h2 className='font-bold'>Hi, Rohit Dhade</h2>
-                        <h4 className='text-purple-500 text-sm -mt-1.5'>Let's finish your task today!</h4>
+                        <h4 className='text-purple-500 text-xs -mt-1.5'>Let's finish your task today!</h4>
                     </div>
                     <div><IoIosNotificationsOutline size={30} /></div>
                 </div>
