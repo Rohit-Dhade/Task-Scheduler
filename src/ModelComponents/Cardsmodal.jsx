@@ -1,7 +1,31 @@
 import React from 'react'
 import { GrClose } from "react-icons/gr";
+import { useState, useEffect } from 'react';
 
-const Cardsmodal = ({ Task, onClose }) => {
+const Cardsmodal = ({index, Task, onClose }) => {
+
+    console.log(index);
+
+    const [subTask, setsubTask] = useState(() => {
+        const stored = localStorage.getItem(`SubTaskProgress${index}`);
+        return stored ? JSON.parse(stored) : [];
+    });
+
+
+    useEffect(() => {
+        localStorage.setItem(`SubTaskProgress${index}`, JSON.stringify(subTask));
+    }, [subTask]);
+
+    const AddSubTask = () => {
+        setsubTask(prev => [...prev, { id: prev.length + 1, done: false }]);
+    }
+
+    function UpdateStatus(id) {
+        setsubTask(prev => prev.map( task =>
+            task.id === id ? {...task , done : !task.done} : task
+        ))
+    }
+
     return (
         <div className='fixed inset-0 bg-black/70 backdrop-blur-lg flex justify-center items-center transition-all duration-300'>
             <div
@@ -12,7 +36,7 @@ const Cardsmodal = ({ Task, onClose }) => {
                     <GrClose />
                 </button>
 
-                <div className='flex flex-col gap-4 w-[70%]'>
+                <div className='flex flex-col gap-4 w-[70%] h-[90%]'>
 
                     <div className='flex items-center justify-between'>
                         <p className='text-[14px] opacity-55 whitespace-nowrap'>
@@ -28,15 +52,19 @@ const Cardsmodal = ({ Task, onClose }) => {
                         <p className='text-[13px] opacity-65'>{Task.subtitle}</p>
                     </div>
 
-                    <div className='flex items-center w-full justify-between overflow-auto no-scrollbar relative'>
-                        <div className='flex flex-col items-start justify-center overflow-auto no-scrollbar h-full w-[50%]'>
-                            <span className='flex gap-2'><input type="checkbox" /><h1>Task-1</h1></span>
-                            <span className='flex gap-2'><input type="checkbox" /><h1>Task-2</h1></span>
-                            <span className='flex gap-2'><input type="checkbox" /><h1>Task-3</h1></span>
-                            <span className='flex gap-2'><input type="checkbox" /><h1>Task-4</h1></span>
+                    <div className='relative flex w-full h-[90%] justify-between overflow-hidden'>
+                        <div className='flex flex-col gap-2 mt-0 overflow-auto no-scrollbar w-[50%]'>
+                            {subTask.map(item => (
+                                <span key={item.id} className='flex gap-2'>
+                                    <input onChange={()=>UpdateStatus(item.id)} type="checkbox" checked={item.done}/>
+                                    <h1>Task-{item.id}</h1>
+                                </span>
+                            ))}
                         </div>
-
-                        <button className='absolute top-0 right-0 bg-purple-500 text-white text-[13px] p-1 rounded-md'>
+                        <button
+                            onClick={AddSubTask}
+                            className='absolute top-0 right-0 bg-purple-500 text-white text-[13px] p-1 rounded-md active:scale-95 hover:bg-purple-700'
+                        >
                             Add Tasks
                         </button>
                     </div>

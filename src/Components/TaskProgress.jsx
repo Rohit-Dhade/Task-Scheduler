@@ -31,7 +31,7 @@ const TaskProgress = () => {
                 </div>
             </div>
             <div className="flex-1 overflow-y-auto no-scrollbar">
-                <div className="w-full h-full bg-gray-200 flex flex-col items-end justify-end gap-2 px-3">
+                <div className="w-[80%] h-full bg-gray-200 flex flex-col items-end justify-end gap-2 px-3">
                     {arrays.map((item, index) => (
                         <SingleBar key={index} weekProgress={item} />
                     ))}

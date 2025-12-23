@@ -25,6 +25,7 @@ const Assignments = () => {
   });
 
   const doneTasks = assignments.filter(a => a.checked).length;
+  console.log((doneTasks/assign.length) * 100);
 
   useEffect(() => {
     localStorage.setItem("assignments", JSON.stringify(assignments));
