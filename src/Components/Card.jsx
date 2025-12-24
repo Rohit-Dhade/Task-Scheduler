@@ -8,7 +8,7 @@ const Card = ({onOpen ,Task}) => {
 
     return (
         <>
-            <div onClick={onOpen} className='bg-white shadow-2xl w-[25%] h-[95%] rounded-2xl border border-gray-400 flex flex-col items-center shrink-0'>
+            <div onClick={onOpen} className='bg-white shadow-2xl min-w-45 max-w-190 h-[95%] rounded-2xl border border-gray-400 flex flex-col items-center flex-shrink-0'>
             <div className='w-[85%] flex flex-col gap-1 relative'>
                 <div className='flex items-center justify-between mt-1'>
                     <p className='text-[10px] opacity-55'>{Task.deadline}</p>

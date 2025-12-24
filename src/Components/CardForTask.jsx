@@ -106,7 +106,7 @@ const CardForTask = () => {
     const arrays = JSON.parse(localStorage.getItem("TaskProgress"))
     return (
         <>
-            <div className='bg-white flex gap-2 justify-start items-center h-[26%] w-[98%] overflow-auto no-scrollbar ml-2'>
+            <div className='bg-white flex gap-2 justify-start items-center h-[26%] max-w-173 overflow-auto no-scrollbar ml-2'>
                 {arrays.map((item,index) => (
                     <Card key={item.id} Task={item} onOpen={() => SelectedTaskIndex(item ,index)} />
                     // console.log(item
